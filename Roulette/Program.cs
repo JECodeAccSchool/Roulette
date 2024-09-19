@@ -5,6 +5,8 @@ bool inQuestion = false;
 int money = 100;
 int bet = 0;
 int betSpecific;
+int spin;
+int spinNum = 0;
 string color;
 string input;
 
@@ -78,7 +80,7 @@ while (userExit == false)
         while (inQuestion = true)
         {
             color = Console.ReadLine();
-            if (color == "Custom" ||  color == "custom")
+            if (color == "Custom" || color == "custom")
             {
                 Console.WriteLine("                       Which Number?                       ");
                 Console.WriteLine();
@@ -86,6 +88,22 @@ while (userExit == false)
                 Console.WriteLine();
                 input = Console.ReadLine();
                 betSpecific = Convert.ToInt32(input);
+            }
+            Console.WriteLine("                        How much?");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            input = Console.ReadLine();
+            bet = Convert.ToInt32(input);
+            
+            
+            Random rand = new Random();
+            spin = rand.Next(250, 350);
+
+            for (int i = 0; i < spin; i++) {
+                if (spinNum )
+                Console.WriteLine(spinNum);
+            
             }
         }
     }
