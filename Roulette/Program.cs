@@ -1,4 +1,8 @@
-﻿bool inRoulette = false;
+﻿using System.ComponentModel.Design;
+using System.Numerics;
+using System.Runtime.InteropServices;
+
+bool inRoulette = false;
 bool userExit = false;
 bool inDebt = false;
 bool inQuestion = false;
@@ -15,54 +19,61 @@ string input;
 
 while (userExit == false)
 {
-    Console.BackgroundColor = ConsoleColor.Black;
-    Console.WriteLine("------------------Welcome to the casino!------------------");
-    Console.WriteLine("               What would you like to play?               ");
-    Console.WriteLine();
-    Console.WriteLine("                        -Roulette-                        ");
-    Console.WriteLine();
-    Console.WriteLine("                      - Placeholder-                      ");
-    Console.WriteLine();
-    Console.WriteLine("                      - Placeholder-                      ");
-    Console.WriteLine();
-    Console.WriteLine("                          -Exit-                          ");
-    Console.WriteLine();
-    Console.WriteLine();
-    Console.WriteLine();
-    Console.WriteLine();
-    Console.WriteLine();
-    if (money >= 0)
+    if (repeatRoulette == false)
     {
-        Console.BackgroundColor = ConsoleColor.DarkGreen;
-    }
-    else
-    {
-        Console.BackgroundColor = ConsoleColor.Red;
-    }
-    Console.WriteLine("Money: " + money);
-    Console.BackgroundColor = ConsoleColor.Black;
-    inQuestion = true;
-    while (inQuestion == true)
-    {
-        input = Console.ReadLine();
-        if (input == "Roulette" || input == "roulette")
+        Console.BackgroundColor = ConsoleColor.Black;
+        Console.WriteLine("------------------Welcome to the casino!------------------");
+        Console.WriteLine("               What would you like to play?               ");
+        Console.WriteLine();
+        Console.WriteLine("                        -Roulette-                        ");
+        Console.WriteLine();
+        Console.WriteLine("                      - Placeholder-                      ");
+        Console.WriteLine();
+        Console.WriteLine("                      - Placeholder-                      ");
+        Console.WriteLine();
+        Console.WriteLine("                          -Exit-                          ");
+        Console.WriteLine();
+        Console.WriteLine();
+        Console.WriteLine();
+        Console.WriteLine();
+        Console.WriteLine();
+        if (money >= 0)
         {
-            inRoulette = true;
-            inQuestion = false;
-        }
-        else if (input == "Exit" || input == "exit")
-        {
-            userExit = true;
-            inQuestion = false;
-            Console.WriteLine("Goodbye!");
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
         }
         else
         {
-            Console.WriteLine("Something went wrong, please try again");
+            Console.BackgroundColor = ConsoleColor.Red;
+        }
+        Console.WriteLine("Money: " + money);
+        Console.BackgroundColor = ConsoleColor.Black;
+        Console.WriteLine();
+
+
+        inQuestion = true;
+
+        while (inQuestion == true)
+        {
+            input = Console.ReadLine();
+            if (input == "Roulette" || input == "roulette")
+            {
+                inRoulette = true;
+                inQuestion = false;
+            }
+            else if (input == "Exit" || input == "exit")
+            {
+                userExit = true;
+                inQuestion = false;
+                Console.WriteLine("Goodbye!");
+            }
+            else
+            {
+                Console.WriteLine("Something went wrong, please try again");
+            }
         }
     }
     Console.BackgroundColor = ConsoleColor.Black;
-    if (inRoulette == true)
+    if (inRoulette == true || repeatRoulette == true)
     {
         Console.WriteLine("-------------------------Roulette-------------------------");
         Console.WriteLine();
@@ -71,8 +82,8 @@ while (userExit == false)
         Console.WriteLine();
         Console.WriteLine("             -What would you like to bet on?-             ");
         Console.WriteLine();
-        Console.WriteLine("                  1           2         3                 ");
-        Console.WriteLine("               -Custom-    -Black-    -Red-               ");
+        Console.WriteLine("                  1          2         3                  ");
+        Console.WriteLine("               -Custom-    -Red-    -Black-               ");
         Console.WriteLine();
         Console.WriteLine();
         Console.WriteLine();
@@ -90,40 +101,13 @@ while (userExit == false)
         }
         Console.WriteLine("Money: " + money);
         Console.BackgroundColor = ConsoleColor.Black;
-        while (inQuestion = true)
+        Console.WriteLine();
+        color = Console.ReadLine();
+        inQuestion = true;
+        while (inQuestion == true)
         {
-            if (repeatRoulette == true)
-            {
-                Console.WriteLine("-------------------------Roulette-------------------------");
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("             -What would you like to bet on?-             ");
-                Console.WriteLine();
-                Console.WriteLine("                  1           2         3                 ");
-                Console.WriteLine("               -Custom-    -Black-    -Red-               ");
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                if (money >= 0)
-                {
-                    Console.BackgroundColor = ConsoleColor.DarkGreen;
-                }
-                else
-                {
-                    Console.BackgroundColor = ConsoleColor.Red;
-                }
-                Console.WriteLine("Money: " + money);
-                Console.BackgroundColor = ConsoleColor.Black;
-                repeatRoulette = false;
-            }
-            color = Console.ReadLine();
-            if (color == "1") 
+            
+            if (color == "1")
             {
                 Console.WriteLine("                       Which Number?                       ");
                 Console.WriteLine();
@@ -141,64 +125,66 @@ while (userExit == false)
                 }
                 Console.WriteLine("Money: " + money);
                 Console.BackgroundColor = ConsoleColor.Black;
+                Console.WriteLine();
+                inQuestion = false;
             }
-            Console.WriteLine("                        How much?");
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine(); 
-            if (money >= 0)
+            else if (color == "2" || color == "3")
             {
-                Console.BackgroundColor = ConsoleColor.DarkGreen;
+                inQuestion = false;
             }
             else
             {
-                Console.BackgroundColor = ConsoleColor.Red;
+                Console.WriteLine("Something went wrong, please try again");
             }
-            Console.WriteLine("Money: " + money);
-            Console.BackgroundColor = ConsoleColor.Black;
+
+        }
+
+        Console.WriteLine("                        How much?");
+        Console.WriteLine();
+        Console.WriteLine();
+        Console.WriteLine();
+        if (money >= 0)
+        {
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
+        }
+        else
+        {
+            Console.BackgroundColor = ConsoleColor.Red;
+        }
+        Console.WriteLine("Money: " + money);
+        Console.BackgroundColor = ConsoleColor.Black;
+        Console.WriteLine();
+        
+        inQuestion = true;
+        while (inQuestion == true)
+        {
             input = Console.ReadLine();
+            bet = Convert.ToInt32(input);
             if (money >= bet)
             {
-            bet = Convert.ToInt32(input);
-            money = money - bet;
-            } else
+                money = money - bet;
+                inQuestion = false;
+            }
+            else if (money < bet)
             {
                 Console.WriteLine("Not enough money!");
+                bet = 0;
             }
-            
-            
-            
-            
-            Random rand = new Random();
-            spin = rand.Next(250, 350);
-            spinNum = rand.Next(0, 37);
-            for (int i = 0; i < spin; i++) {
-                spinMod = spinNum % 2;
-                if (spinMod == 0 && spinNum != 0)
-                {
-                    Console.BackgroundColor = ConsoleColor.Red;
-                } else if (spinMod == 1 && spinNum != 0)
-                {
-                    Console.BackgroundColor= ConsoleColor.Black;
-                } else if (spinNum == 0)  
-                {
-                    Console.BackgroundColor= ConsoleColor.Green;
-                }
-                Console.WriteLine(spinNum);
-                Console.BackgroundColor = ConsoleColor.Black;
-                spinNum++;
-                if (spinNum > 36)
-                {
-                    spinNum = 0;
-                }
-            }
-            Console.WriteLine();
+        }
+
+
+
+        Random rand = new Random();
+        spin = rand.Next(250, 350);
+        spinNum = rand.Next(0, 37);
+        for (int i = 0; i < spin; i++)
+        {
             spinMod = spinNum % 2;
-            if (spinMod == 1 && spinNum != 0)
+            if (spinMod == 0 && spinNum != 0)
             {
                 Console.BackgroundColor = ConsoleColor.Red;
             }
-            else if (spinMod == 0 && spinNum != 0)
+            else if (spinMod == 1 && spinNum != 0)
             {
                 Console.BackgroundColor = ConsoleColor.Black;
             }
@@ -207,47 +193,84 @@ while (userExit == false)
                 Console.BackgroundColor = ConsoleColor.Green;
             }
             Console.WriteLine(spinNum);
-            if (spinMod == 0 && color == "2" && spinNum != 0)
+            Console.BackgroundColor = ConsoleColor.Black;
+            spinNum++;
+            if (spinNum > 36)
             {
-                money = money + bet * 2;
-                Console.WriteLine("You WON!   +" + bet + " C");
+                spinNum = 0;
             }
-            else if (spinMod == 1 && color == "3" && spinNum != 0)
-            {
-                money = money + bet * 2;
-                Console.WriteLine("You WON!   +" + bet + " C");
-            }
-            else if (spinNum == betSpecific && color == "0")
-            {
-                money = money + bet * 10;
-                Console.WriteLine("You WON!   +" + bet + " C");
-            }
-            else 
-            { 
-            Console.BackgroundColor= ConsoleColor.Black;
+            Console.WriteLine();
+        }
+        spinMod = spinNum % 2;
+        if (spinMod == 0 && spinNum != 0)
+        {
+            Console.BackgroundColor = ConsoleColor.Red;
+        }
+        else if (spinMod == 1 && spinNum != 0)
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+        }
+        else
+        {
+            Console.BackgroundColor = ConsoleColor.Green;
+        }
+        Console.WriteLine(spinNum);
+        Console.BackgroundColor = ConsoleColor.Black;
+
+        if (spinMod == 0 && color == "2" && spinNum != 0)
+        {
+            money = money + bet * 2;
+            Console.WriteLine("You WON!   +" + bet + " C");
+        }
+        else if (spinMod == 1 && color == "3" && spinNum != 0)
+        {
+            money = money + bet * 2;
+            Console.WriteLine("You WON!   +" + bet + " C");
+        }
+        else if (spinNum == betSpecific && color == "0")
+        {
+            money = money + bet * 10;
+            Console.WriteLine("You WON!   +" + bet + " C");
+        }
+        else
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine("You LOST!");
-            }
-            Console.WriteLine("Spin again?");
-            input = Console.ReadLine();
-            if (input == "yes" || input == "y" || input == "Yes" || input == "Y") 
+        }
+        Console.WriteLine("Spin again?");
+        inQuestion = true;
+        input = Console.ReadLine();
+        while (inQuestion == true)
+        {
+            if (input == "yes" || input == "y" || input == "Yes" || input == "Y")
             {
                 inQuestion = false;
                 repeatRoulette = true;
-            } else
+
+            }
+            else if (input == "no" || input == "n" || input == "No" || input == "N")
             {
                 inQuestion = false;
                 inRoulette = false;
-            }
-            if (money >= 0)
-            {
-                Console.BackgroundColor = ConsoleColor.DarkGreen;
+                repeatRoulette = false;
             }
             else
             {
-                Console.BackgroundColor = ConsoleColor.Red;
+                inQuestion = true;
+                Console.WriteLine("Something went wrong, please try again");
             }
-            Console.WriteLine("Money: " + money);
-            Console.BackgroundColor = ConsoleColor.Black;
         }
+        if (money >= 0)
+        {
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
+        }
+        else
+        {
+            Console.BackgroundColor = ConsoleColor.Red;
+        }
+        Console.WriteLine("Money: " + money);
+        Console.BackgroundColor = ConsoleColor.Black;
+        Console.WriteLine();
+
     }
 }
