@@ -9,12 +9,15 @@ bool inDebt = false;
 bool inQuestion = false;
 bool repeatRoulette = false;
 bool isString = false;
+bool inLoop = false;
+bool extraQuestion = false;
 int money = 100;
 int bet = 0;
 int betSpecific = -1;
 int spin;
 int spinNum = 0;
 int spinMod;
+int uniVal = 0;
 string color = "ignore";
 string input = "ignore";
 
@@ -116,19 +119,55 @@ while (userExit == false)
                 Console.WriteLine();
                 Console.WriteLine("[Exit]");
                 input = Console.ReadLine();
-                betSpecific = Convert.ToInt32(input);
-                if (money >= 0)
+                extraQuestion = true;
+                while (extraQuestion == true)
                 {
-                    Console.BackgroundColor = ConsoleColor.DarkGreen;
+                    inLoop = true;
+                    extraQuestion = true;
+                    isString = false;
+                    while (extraQuestion == true)
+                    {
+                        while (inLoop == true)
+                        {
+                            while (isString == false && inLoop == true)
+                            {
+                                for (int i = 0; i < input.Length; i++)
+                                {
+
+                                    uniVal = (int)input[i];
+                                    if (uniVal > 57 || uniVal < 48)
+                                    {
+
+                                        isString = true;
+                                        i = input.Length;
+                                    }
+                                    inLoop = false;
+                                }
+                            }
+                            inLoop = false;
+                        }
+                    }
+                    if (isString == false)
+                    {
+                        betSpecific = Convert.ToInt32(input);
+                        if (money >= 0)
+                        {
+                            Console.BackgroundColor = ConsoleColor.DarkGreen;
+                        }
+                        else
+                        {
+                            Console.BackgroundColor = ConsoleColor.Red;
+                        }
+                        Console.WriteLine("Money: " + money);
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.WriteLine();
+                        inQuestion = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Something went wrong, please try again");
+                    }
                 }
-                else
-                {
-                    Console.BackgroundColor = ConsoleColor.Red;
-                }
-                Console.WriteLine("Money: " + money);
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.WriteLine();
-                inQuestion = false;
             }
             else if (color == "2" || color == "3")
             {
@@ -161,40 +200,95 @@ while (userExit == false)
         inQuestion = true;
         while (inQuestion == true)
         {
-            input = Console.ReadLine();
             
-            if (isString == false)
+            input = Console.ReadLine();
+            inLoop = true;
+            extraQuestion = true;
+            isString = false;
+            while (extraQuestion == true)
             {
-                
-                bet = Convert.ToInt32(input + 0);
-                if (money >= bet)
+                while (inLoop == true)
                 {
-                    money = money - bet;
+                    while (isString == false && inLoop == true)
+                    {
+                        for (int i = 0; i < input.Length; i++)
+                        {
+                            
+                            uniVal = (int)input[i];
+                            if (uniVal > 57 || uniVal < 48)
+                            {
+
+                                isString = true;
+                                i = input.Length;
+                            }
+                            inLoop = false;
+                        }
+                    }
+                    inLoop = false;
+                }
+
+                if (isString == false)
+                {
+
+                    bet = Convert.ToInt32(input);
+                    if (money >= bet)
+                    {
+                        money = money - bet;
+                        inQuestion = false;
+                        extraQuestion = false;
+                    }
+                    else if (money < bet)
+                    {
+                        Console.WriteLine("Not enough money!");
+                        bet = 0;
+                        extraQuestion = false;
+                    }
+                }
+                else if (input == "Exit" || input == "exit")
+                {
                     inQuestion = false;
+                    extraQuestion = false;
+                    inRoulette = false;
+                    repeatRoulette = false;
                 }
-                else if (money < bet)
+                else
                 {
-                    Console.WriteLine("Not enough money!");
-                    bet = 0;
+                    Console.WriteLine("Something went wrong, please try again");
+                    extraQuestion = false;
                 }
-            } else if (input == "Exit" || input == "exit")
-            {
-                inQuestion = false;
-                inRoulette = false;
-                repeatRoulette = false;
-            } else
-            {
-                Console.WriteLine("Something went wrong, please try again");
             }
         }
 
 
-
-        Random rand = new Random();
-        spin = rand.Next(250, 350);
-        spinNum = rand.Next(0, 37);
-        for (int i = 0; i < spin; i++)
+        if (inRoulette == true || repeatRoulette)
         {
+            Random rand = new Random();
+            spin = rand.Next(250, 350);
+            spinNum = rand.Next(0, 37);
+            for (int i = 0; i < spin; i++)
+            {
+                spinMod = spinNum % 2;
+                if (spinMod == 0 && spinNum != 0)
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                }
+                else if (spinMod == 1 && spinNum != 0)
+                {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
+                else if (spinNum == 0)
+                {
+                    Console.BackgroundColor = ConsoleColor.Green;
+                }
+                Console.WriteLine(spinNum);
+                Console.BackgroundColor = ConsoleColor.Black;
+                spinNum++;
+                if (spinNum > 36)
+                {
+                    spinNum = 0;
+                }
+                Console.WriteLine();
+            }
             spinMod = spinNum % 2;
             if (spinMod == 0 && spinNum != 0)
             {
@@ -204,89 +298,67 @@ while (userExit == false)
             {
                 Console.BackgroundColor = ConsoleColor.Black;
             }
-            else if (spinNum == 0)
+            else
             {
                 Console.BackgroundColor = ConsoleColor.Green;
             }
             Console.WriteLine(spinNum);
             Console.BackgroundColor = ConsoleColor.Black;
-            spinNum++;
-            if (spinNum > 36)
-            {
-                spinNum = 0;
-            }
-            Console.WriteLine();
-        }
-        spinMod = spinNum % 2;
-        if (spinMod == 0 && spinNum != 0)
-        {
-            Console.BackgroundColor = ConsoleColor.Red;
-        }
-        else if (spinMod == 1 && spinNum != 0)
-        {
-            Console.BackgroundColor = ConsoleColor.Black;
-        }
-        else
-        {
-            Console.BackgroundColor = ConsoleColor.Green;
-        }
-        Console.WriteLine(spinNum);
-        Console.BackgroundColor = ConsoleColor.Black;
 
-        if (spinMod == 0 && color == "2" && spinNum != 0)
-        {
-            money = money + bet * 2;
-            Console.WriteLine("You WON!   +" + bet + " C");
-        }
-        else if (spinMod == 1 && color == "3" && spinNum != 0)
-        {
-            money = money + bet * 2;
-            Console.WriteLine("You WON!   +" + bet + " C");
-        }
-        else if (spinNum == betSpecific && color == "0")
-        {
-            money = money + bet * 10;
-            Console.WriteLine("You WON!   +" + bet + " C");
-        }
-        else
-        {
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.WriteLine("You LOST!");
-        }
-        Console.WriteLine("Spin again?");
-        inQuestion = true;
-        input = Console.ReadLine();
-        while (inQuestion == true)
-        {
-            if (input == "yes" || input == "y" || input == "Yes" || input == "Y")
+            if (spinMod == 0 && color == "2" && spinNum != 0)
             {
-                inQuestion = false;
-                repeatRoulette = true;
-
+                money = money + bet * 2;
+                Console.WriteLine("You WON!   +" + bet + " C");
             }
-            else if (input == "no" || input == "n" || input == "No" || input == "N")
+            else if (spinMod == 1 && color == "3" && spinNum != 0)
             {
-                inQuestion = false;
-                inRoulette = false;
-                repeatRoulette = false;
+                money = money + bet * 2;
+                Console.WriteLine("You WON!   +" + bet + " C");
+            }
+            else if (spinNum == betSpecific && color == "0")
+            {
+                money = money + bet * 10;
+                Console.WriteLine("You WON!   +" + bet + " C");
             }
             else
             {
-                inQuestion = true;
-                Console.WriteLine("Something went wrong, please try again");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.WriteLine("You LOST!");
             }
-        }
-        if (money >= 0)
-        {
-            Console.BackgroundColor = ConsoleColor.DarkGreen;
-        }
-        else
-        {
-            Console.BackgroundColor = ConsoleColor.Red;
-        }
-        Console.WriteLine("Money: " + money);
-        Console.BackgroundColor = ConsoleColor.Black;
-        Console.WriteLine();
+            Console.WriteLine("Spin again?");
+            inQuestion = true;
+            input = Console.ReadLine();
+            while (inQuestion == true)
+            {
+                if (input == "yes" || input == "y" || input == "Yes" || input == "Y")
+                {
+                    inQuestion = false;
+                    repeatRoulette = true;
 
+                }
+                else if (input == "no" || input == "n" || input == "No" || input == "N")
+                {
+                    inQuestion = false;
+                    inRoulette = false;
+                    repeatRoulette = false;
+                }
+                else
+                {
+                    inQuestion = true;
+                    Console.WriteLine("Something went wrong, please try again");
+                }
+            }
+            if (money >= 0)
+            {
+                Console.BackgroundColor = ConsoleColor.DarkGreen;
+            }
+            else
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+            }
+            Console.WriteLine("Money: " + money);
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.WriteLine();
+        }
     }
 }
