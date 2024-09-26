@@ -107,7 +107,7 @@ while (userExit == false)
         Console.WriteLine("Money: " + money);
         Console.BackgroundColor = ConsoleColor.Black;
         Console.WriteLine();
-        
+
         inQuestion = true;
         while (inQuestion == true)
         {
@@ -118,55 +118,72 @@ while (userExit == false)
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine("[Exit]");
-                input = Console.ReadLine();
+
                 extraQuestion = true;
                 while (extraQuestion == true)
                 {
+                    input = Console.ReadLine();
                     inLoop = true;
                     extraQuestion = true;
                     isString = false;
-                    while (extraQuestion == true)
+
+
+                    while (inLoop == true)
                     {
-                        while (inLoop == true)
+                        while (isString == false && inLoop == true)
                         {
-                            while (isString == false && inLoop == true)
+                            for (int i = 0; i < input.Length; i++)
                             {
-                                for (int i = 0; i < input.Length; i++)
+
+                                uniVal = (int)input[i];
+                                if (uniVal > 57 || uniVal < 48)
                                 {
 
-                                    uniVal = (int)input[i];
-                                    if (uniVal > 57 || uniVal < 48)
-                                    {
-
-                                        isString = true;
-                                        i = input.Length;
-                                    }
-                                    inLoop = false;
+                                    isString = true;
+                                    i = input.Length;
                                 }
+                                inLoop = false;
                             }
-                            inLoop = false;
                         }
+                        inLoop = false;
                     }
+
                     if (isString == false)
                     {
                         betSpecific = Convert.ToInt32(input);
-                        if (money >= 0)
+                        if (betSpecific >= 0 && betSpecific <= 36)
                         {
-                            Console.BackgroundColor = ConsoleColor.DarkGreen;
-                        }
-                        else
+                            if (money >= 0)
+                            {
+                                Console.BackgroundColor = ConsoleColor.DarkGreen;
+                            }
+                            else
+                            {
+                                Console.BackgroundColor = ConsoleColor.Red;
+                            }
+                            Console.WriteLine("Money: " + money);
+                            Console.BackgroundColor = ConsoleColor.Black;
+                            Console.WriteLine();
+                            inQuestion = false;
+                            extraQuestion = false;
+                        } else
                         {
-                            Console.BackgroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Something went wrong, please try again") ;
                         }
-                        Console.WriteLine("Money: " + money);
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.WriteLine();
+                    }
+                    else if (input == "Exit" || input == "exit")
+                    {
                         inQuestion = false;
+                        extraQuestion = false;
+                        inRoulette = false;
+                        repeatRoulette = false;
                     }
                     else
                     {
                         Console.WriteLine("Something went wrong, please try again");
                     }
+
+
                 }
             }
             else if (color == "2" || color == "3")
@@ -200,7 +217,7 @@ while (userExit == false)
         inQuestion = true;
         while (inQuestion == true)
         {
-            
+
             input = Console.ReadLine();
             inLoop = true;
             extraQuestion = true;
@@ -213,7 +230,7 @@ while (userExit == false)
                     {
                         for (int i = 0; i < input.Length; i++)
                         {
-                            
+
                             uniVal = (int)input[i];
                             if (uniVal > 57 || uniVal < 48)
                             {
