@@ -423,7 +423,7 @@ while (userExit == false)
         Console.WriteLine();
         Console.WriteLine("[Exit]");
         Console.WriteLine();
-        
+
         inQuestion = true;
         while (inQuestion == true)
         {
@@ -609,16 +609,36 @@ while (userExit == false)
                 }
                 else
                 {
-                    
+
                     Console.WriteLine("Something went wrong, please try again");
                 }
             }
         }
     }
 }
-    Console.WriteLine("END");
-    Console.WriteLine("Most money: " + moneyHigh);
-    Console.WriteLine("Played roulette " + rouletteTimes + " times");
-    Console.WriteLine("Flipped a coin " + coinTimes + " times");
+Console.WriteLine("END");
+Console.WriteLine("Most money: " + moneyHigh);
+Console.WriteLine("Played roulette " + rouletteTimes + " times");
+Console.WriteLine("Flipped a coin " + coinTimes + " times");
 
-    userExit = true;
+if (moneyHigh >= 1000000)
+{
+    Console.WriteLine("A truly legendary gambler!");
+}
+else if (moneyHigh >= 100000)
+{
+    Console.WriteLine("Casino gone bust!");
+} 
+else if (moneyHigh >= 10000)
+{
+    Console.WriteLine("Jackpot acquired!");
+}
+else if (moneyHigh >= 1000)
+{
+    Console.WriteLine("Decent winnings!");
+} else
+{
+    Console.WriteLine("Good enough!");
+}
+
+userExit = true;
